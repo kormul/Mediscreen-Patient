@@ -13,10 +13,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(name = "address")
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "address")
 public class Address {
 
 	@Id

@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Ignore;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +28,18 @@ import org.springframework.web.context.WebApplicationContext;
 import com.mediscreen.patient.dto.PatientDTO;
 import com.mediscreen.patient.model.Address;
 import com.mediscreen.patient.model.Patient;
+import com.mediscreen.patient.service.PatientService;
 
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
+
 public class PatientWebControllerTest {
 
     private MockMvc mockMvc;
 
+    @Autowired
+    PatientService patientService;
 	
     @Autowired
     private WebApplicationContext webContext;
@@ -70,7 +77,7 @@ public class PatientWebControllerTest {
     	.andExpect(model().attributeExists("PatientDTO"))
         .andReturn();
     }
-    	
+  
     @Test
     public void postAddPatient() throws Exception{
     	
@@ -136,15 +143,15 @@ public class PatientWebControllerTest {
     	
     }
     
-   /*
     @Test
-    public void getDeletePatient() throws Exception{
+    public void lastTestGetDelete() throws Exception{
     	
-    	mockMvc.perform(get("/patient/delete?id=11"))
+    	int id = patientService.getAllPatients().get(patientService.getAllPatients().size()-1).getId();
+    	System.out.println(id);
+    	mockMvc.perform(get("/patient/delete?id="+id))
     	.andExpect(status().is3xxRedirection())
         .andReturn();
     	
     }
-    */
     
 }
